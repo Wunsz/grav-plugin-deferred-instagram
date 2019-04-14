@@ -1,5 +1,5 @@
-# v0.1.0
+# v1.0.0
 ##  04/14/2019
 
 1. [](#new)
-    * ChangeLog started...
+    * Added main functionality of the plugin

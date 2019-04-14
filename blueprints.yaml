@@ -1,5 +1,5 @@
 name: Deferred Instagram
-version: 0.1.0
+version: 1.0.0
 description: Makes an API call to Instagram after page was loaded and then dynamically loads the conent.
 icon: instagram
 author:
