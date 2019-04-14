@@ -24,6 +24,8 @@ You should now have all the plugin files under
 	
 > NOTE: This plugin is a modular component for Grav which requires [Grav](http://github.com/getgrav/grav) and the [Error](https://github.com/getgrav/grav-plugin-error) and [Problems](https://github.com/getgrav/grav-plugin-problems) to operate.
 
+> IMPORTANT: This  plugin requires following [Instagram](https://github.com/artifex404/grav-plugin-instagram/) Grav plugin.
+
 ### Admin Plugin
 
 If you use the admin plugin, you can install directly through the admin plugin by browsing the `Plugins` tab and clicking on the `Add` button.
@@ -42,13 +44,15 @@ Note that if you use the admin plugin, a file with your configuration, and named
 
 ## Usage
 
-**Describe how to use the plugin.**
+To use this plugin you simply need to include a function your template file such as:
+
+```
+{{ deferred_instagram_feed() }}
+```
+
+This will set the twig template from the Instagram plugin, but it will be fetched via ajax. See the Instagram plugin for reference.
 
 ## Credits
 
-Thanks to Igor Buyanov, creator of the original Instagram plugin: https://github.com/artifex404/grav-plugin-instagram
-
-## To Do
-
-- [ ] Future plans, if any
+Thanks to Igor Buyanov, creator of the original Instagram plugin: [https://github.com/artifex404/grav-plugin-instagram/](https://github.com/artifex404/grav-plugin-instagram/)
 
