@@ -1,7 +1,5 @@
 # Deferred Instagram Plugin
 
-**This README.md file should be modified to describe the features, installation, configuration, and general usage of this plugin.**
-
 The **Deferred Instagram** Plugin is for [Grav CMS](http://github.com/getgrav/grav). Makes an API call to Instagram after page was loaded and then dynamically loads the conent.
 
 ## Installation
@@ -48,7 +46,7 @@ Note that if you use the admin plugin, a file with your configuration, and named
 
 ## Credits
 
-**Did you incorporate third-party code? Want to thank somebody?**
+Thanks to Igor Buyanov, creator of the original Instagram plugin: https://github.com/artifex404/grav-plugin-instagram
 
 ## To Do
 

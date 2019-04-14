@@ -1,4 +1,5 @@
 <?php
+
 namespace Grav\Plugin;
 
 use Grav\Common\Plugin;
@@ -8,8 +9,11 @@ use RocketTheme\Toolbox\Event\Event;
  * Class DeferredInstagramPlugin
  * @package Grav\Plugin
  */
-class DeferredInstagramPlugin extends Plugin
-{
+class DeferredInstagramPlugin extends Plugin {
+
+    private $template_html = 'partials/deferred-instagram.html.twig';
+
+
     /**
      * @return array
      *
@@ -20,44 +24,57 @@ class DeferredInstagramPlugin extends Plugin
      *     callable (or function) as well as the priority. The
      *     higher the number the higher the priority.
      */
-    public static function getSubscribedEvents()
-    {
+    public static function getSubscribedEvents() {
         return [
-            'onPluginsInitialized' => ['onPluginsInitialized', 0]
+            'onPagesInitialized' => ['onPagesInitialized', 0],
+            'onPluginsInitialized' => ['onPluginsInitialized', 0],
         ];
     }
 
+
     /**
-     * Initialize the plugin
+     * Initialize configuration.
      */
     public function onPluginsInitialized()
     {
-        // Don't proceed if we are in the admin plugin
-        if ($this->isAdmin()) {
-            return;
-        }
-
-        // Enable the main event we are interested in
         $this->enable([
-            'onPageContentRaw' => ['onPageContentRaw', 0]
+            'onTwigTemplatePaths' => ['onTwigTemplatePaths', 0],
+            'onTwigInitialized' => ['onTwigInitialized', 0]
         ]);
     }
 
     /**
-     * Do some work for this event, full details of events can be found
-     * on the learn site: http://learn.getgrav.org/plugins/event-hooks
-     *
-     * @param Event $e
+     * Add Twig Extensions.
      */
-    public function onPageContentRaw(Event $e)
+    public function onTwigInitialized()
     {
-        // Get a variable from the plugin configuration
-        $text = $this->grav['config']->get('plugins.deferred-instagram.text_var');
+        $this->grav['twig']->twig->addFunction(new \Twig_SimpleFunction('deferred_instagram_feed', [$this, 'getFeedPlaceholder']));
+    }
 
-        // Get the current raw content
-        $content = $e['page']->getRawContent();
+    /**
+     * Add current directory to twig lookup paths.
+     */
+    public function onTwigTemplatePaths() {
+        $this->grav['twig']->twig_paths[] = __DIR__ . '/templates';
+    }
 
-        // Prepend the output with the custom text and set back on the page
-        $e['page']->setRawContent($text . "\n\n" . $content);
+    public function onPagesInitialized() {
+        $uri = $this->grav['uri'];
+
+        if (strpos($uri->path(), '/deferred-instagram/fetch') === false) {
+            return;
+        }
+
+        // Extract get feed from instagram plugin twig extension and call it.
+        [$instagram, $getFeed] = $this->grav['twig']->twig->getFunction('instagram_feed')->getCallable();
+
+        echo $instagram->$getFeed();
+        exit();
+    }
+
+    public function getFeedPlaceholder() {
+        $output = $this->grav['twig']->twig()->render($this->template_html, []);
+
+        return $output;
     }
 }

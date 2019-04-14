@@ -1,16 +1,18 @@
 name: Deferred Instagram
 version: 0.1.0
 description: Makes an API call to Instagram after page was loaded and then dynamically loads the conent.
-icon: plug
+icon: instagram
 author:
   name: Bartosz Jabłoński | Code in the Cup
   email: bjablonski@codeinthecup.pl
 homepage: https://github.com/thewunsz/grav-plugin-deferred-instagram
-demo: http://demo.yoursite.com
-keywords: grav, plugin, etc
+keywords: instagram, deferred, js, ajax, api
 bugs: https://github.com/thewunsz/grav-plugin-deferred-instagram/issues
 docs: https://github.com/thewunsz/grav-plugin-deferred-instagram/blob/develop/README.md
 license: MIT
+
+dependencies:
+  - { name: instagram }
 
 form:
   validation: strict
@@ -25,7 +27,3 @@ form:
         0: PLUGIN_ADMIN.DISABLED
       validate:
         type: bool
-    text_var:
-      type: text
-      label: PLUGIN_DEFERRED_INSTAGRAM.TEXT_VARIABLE
-      help: PLUGIN_DEFERRED_INSTAGRAM.TEXT_VARIABLE_HELP
